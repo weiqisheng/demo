@@ -1,11 +1,11 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
 /**
  * @author weiqisheng
- * @Title: RescoureService
+ * @Title: ResourceService
  * @ProjectName demo
  * @Description: TODO
  * @date 2020/12/2211:40
  */
-public interface RescoureService {
+public interface ResourceService {
 }
