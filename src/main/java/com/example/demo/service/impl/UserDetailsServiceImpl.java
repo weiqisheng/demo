@@ -1,10 +1,13 @@
 package com.example.demo.service.impl;
 
 
-import com.example.demo.model.User;
+import com.example.demo.model.AdminUserDetails;
+import com.example.demo.model.UmsAdmin;
+import com.example.demo.model.UmsResource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,15 +34,13 @@ public class  UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        if (StringUtils.isBlank(userName)){
-            throw new RuntimeException("用户账户不能为空！！");
-        }
-        User user = User.builder().userName("admin").password(passwordEncoder.encode("123456")).build();
-        if (Objects.isNull(user)){
-            throw new RuntimeException("用户账户不存在！！");
-        }
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_111"));
-        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),authorities);
+        //获取用户信息
+        UmsAdmin admin = new UmsAdmin();
+        admin.setUsername("admin");
+        admin.setStatus(1);
+        admin.setPassword(passwordEncoder.encode("123456"));
+        List<UmsResource> resourceList = new ArrayList<>();
+        return new AdminUserDetails(admin,resourceList);
+
     }
 }

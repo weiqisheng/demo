@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.common.ResultObject;
+import com.example.demo.common.CommonResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/test")
-    public ResultObject test(){
-        return ResultObject.success("12312331");
+    public CommonResult test(){
+        return CommonResult.success("12312331");
     }
 }
