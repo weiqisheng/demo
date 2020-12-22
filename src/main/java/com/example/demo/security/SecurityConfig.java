@@ -1,9 +1,8 @@
-package com.example.demo.config;
+package com.example.demo.security;
 
-import com.example.demo.component.JWTAuthenticationEntryPoint;
-import com.example.demo.component.JwtAccessDeniedHandler;
-import com.example.demo.component.JwtAuthenticationTokenFilter;
-import com.example.demo.properties.IgnoreUrlsConfig;
+import com.example.demo.security.component.JWTAuthenticationEntryPoint;
+import com.example.demo.security.component.JwtAccessDeniedHandler;
+import com.example.demo.security.component.JwtAuthenticationTokenFilter;
 import com.example.demo.utils.JwtTokenUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

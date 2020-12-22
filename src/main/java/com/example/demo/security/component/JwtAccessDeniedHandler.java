@@ -1,4 +1,4 @@
-package com.example.demo.component;
+package com.example.demo.security.component;
 
 import cn.hutool.json.JSONUtil;
 import com.example.demo.common.CommonResult;

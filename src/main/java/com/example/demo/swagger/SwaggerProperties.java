@@ -1,4 +1,4 @@
-package com.example.demo.properties;
+package com.example.demo.swagger;
 
 import lombok.Builder;
 import lombok.Data;

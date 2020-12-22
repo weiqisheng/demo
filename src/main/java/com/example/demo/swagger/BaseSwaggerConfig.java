@@ -3,7 +3,6 @@ package com.example.demo.swagger;
 
 
 
-import com.example.demo.properties.SwaggerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

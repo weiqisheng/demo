@@ -1,4 +1,4 @@
-package com.example.demo.component;
+package com.example.demo.security.component;
 
 import com.example.demo.utils.JwtTokenUtils;
 import org.slf4j.Logger;

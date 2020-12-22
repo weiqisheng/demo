@@ -1,7 +1,5 @@
 package com.example.demo.swagger;
 
-import com.example.demo.properties.SwaggerProperties;
-import com.example.demo.swagger.BaseSwaggerConfig;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
