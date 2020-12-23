@@ -73,6 +73,7 @@ public class UmsResource implements Serializable {
         this.categoryId = categoryId;
     }
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

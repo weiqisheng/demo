@@ -33,3 +33,8 @@ secure:
       - /druid/**
       - /admin/login
       - /test
+mybatis:
+  mapper-locations:
+    - classpath*:/mapper/*.xml
+
+isAble: true
