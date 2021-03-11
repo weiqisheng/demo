@@ -25,6 +25,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -46,8 +47,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired(required = false)
     private DynamicSecurityService dynamicSecurityService;
 
+    /**
+     * 登录成功处理
+     */
     @Resource
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    /**
+     * 登录失败处理
+     */
+    @Resource
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
+    /**
+     * 退出成功处理
+     */
+//    @Resource
+//    private LogoutSuccessHandler logoutSuccessHandler;
 
     @Resource
     private UserMapper userMapper;
@@ -58,8 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Value("{isAble}")
     private String securityAble;
 
-    @Resource
-    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
@@ -108,10 +122,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         registry.and().formLogin().loginPage("/login.html").loginProcessingUrl("/admin/login")
                 .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
+//        registry.and().logout().logoutUrl("/admin/logout").logoutSuccessHandler(logoutSuccessHandler);
         //动态权限控制
        if(dynamicSecurityService != null){
             registry.and().addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
         }
+        //        // 防止H2 web 页面的Frame 被拦截
+        registry.and().headers().frameOptions().disable();
 
 
     }

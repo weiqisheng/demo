@@ -4,6 +4,7 @@ import com.example.demo.common.CommonResult;
 import com.example.demo.model.AdminUserDetails;
 import com.example.demo.utils.JwtTokenUtils;
 import com.example.demo.utils.ResponseUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -33,6 +35,8 @@ import java.util.Objects;
 @Configuration
 public class SecurityHandlerConfig {
 
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
@@ -65,6 +69,10 @@ public class SecurityHandlerConfig {
         };
     }
 
+    /**
+     * 验证失败
+     * @return
+     */
     @Bean
     public AuthenticationFailureHandler loginFailureHandler(){
         return new AuthenticationFailureHandler() {
@@ -92,5 +100,17 @@ public class SecurityHandlerConfig {
             }
         };
     }
-
+//
+//    @Bean
+//    public LogoutSuccessHandler logoutSuccessHandle(){
+//        return new LogoutSuccessHandler() {
+//            @Override
+//            public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+//                String authHeader = httpServletRequest.getHeader(tokenHeader);
+//                if (StringUtils.isNoneBlank(authHeader)){
+//                    String authToken = authHeader.substring(tokenHead.length());// The part after "Bearer "
+//                }
+//            }
+//        };
+//    }
 }

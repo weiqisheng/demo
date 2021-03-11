@@ -15,6 +15,10 @@ spring:
     url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+  mvc:
+    static-path-pattern: /image/**   #图片访问路径
+  resources:
+    static-locations: file:G://guge/  # 图片本地路径
 
 secure:
   ignored:
@@ -32,9 +36,16 @@ secure:
       - /actuator/**
       - /druid/**
       - /admin/login
-      - /test
+      - /test/**
+      - /image/**
 mybatis:
   mapper-locations:
     - classpath*:/mapper/*.xml
 
 isAble: true
+
+oath:
+  boy: 韦启生
+  action: 爱
+  girl: 张裕华
+  time: 一万年
