@@ -1,7 +1,8 @@
-package com.example.demo.utils;
+package com.example.demo.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  * @author weiqisheng
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
  * @Description: TODO
  * @date 2020/12/2816:32
  */
+@Component
 @ConfigurationProperties(prefix = "test")
 @PropertySource("classpath:test.yml")
 public class TestProperties {

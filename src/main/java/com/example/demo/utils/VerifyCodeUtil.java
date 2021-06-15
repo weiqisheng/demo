@@ -27,7 +27,7 @@ public class VerifyCodeUtil {
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(80,30,4,10);
         String verifyCode = lineCaptcha.getCode();
-        //设置响应头
+         //设置响应头
         response.setHeader("Pragma","no-cache");
         //设置响应头
         response.setHeader("Cache-Control","no-cache");

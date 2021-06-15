@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.example.demo.common.CommonResult;
+import com.example.demo.common.annotation.Authority;
+import com.example.demo.config.ApplicationProperties;
+import com.example.demo.config.TestProperties;
 import com.example.demo.model.UmsAdmin;
 import com.example.demo.utils.*;
 import io.swagger.annotations.Api;
@@ -13,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author weiqisheng
@@ -29,6 +29,7 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "测试")
+@Authority(name = "tt",pid = "123")
 @RequestMapping("/test")
 public class TestController {
 
@@ -60,8 +61,9 @@ public class TestController {
     }
 
 
-    @GetMapping("/getCode")
+    @GetMapping("/getCode/{id}")
     @ApiOperation("验证码")
+    @Authority(name = "TEST_EDIT",pid = "001001")
     public void getCode(HttpServletResponse response){
         System.out.println(VerifyCodeUtil.lineCatcha(response));
     }
@@ -137,6 +139,25 @@ public class TestController {
         String[] cloumnName = new String[]{"id","username","password","status"};
         String[] keys = new String[]{"用户id","姓名","密码","状态"};
         ExcelUtils.export(response,"测试.xls",umsAdmins,cloumnName,keys);
+    }
+
+    /**
+     * 导入学生信息
+     *
+     * @param file
+     * @throws IOException
+     */
+    @RequestMapping(value = "import")
+    public List<UmsAdmin> importStudentInfos(MultipartFile file) throws IOException {
+        ExcelReader reader = ExcelUtil.getReader(file.getInputStream());
+        reader.addHeaderAlias("学号", "sno");
+        reader.addHeaderAlias("姓名", "name");
+        reader.addHeaderAlias("年龄", "age");
+        reader.addHeaderAlias("性别", "gender");
+        reader.addHeaderAlias("籍贯", "nativePlace");
+        reader.addHeaderAlias("入学时间", "enrollmentTime");
+        List<UmsAdmin> studentList = reader.readAll(UmsAdmin.class);
+        return studentList;
     }
 
 
